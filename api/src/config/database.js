@@ -1,9 +1,9 @@
 const { Sequelize, DataTypes } = require("sequelize")
-const User = require("../models/user")
-const Profile = require("../models/profile")
-const Post = require("../models/post")
-const Like = require("../models/like")
-const Comment = require("../models/comment")
+const User = require("../models/User")
+const Profile = require("../models/Profile")
+const Post = require("../models/Post")
+const Like = require("../models/Like")
+const Comment = require("../models/Comment")
 const sequelize = new Sequelize("social_media","root","",{
     host: "localhost",
     port: 3306,
@@ -16,6 +16,11 @@ let post = Post(sequelize, DataTypes, user)
 let comment = Comment(sequelize, DataTypes, { user, post })
 let like = Like(sequelize, DataTypes, { user, post, comment})
 
+sequelize
+    .sync()
+    .then((value) => console.log("synchronized"))
+    .catch((error) => console.log(error))
+
 module.exports = {
     connect(callback){        
         sequelize
@@ -26,12 +31,6 @@ module.exports = {
     disconnect(){
         sequelize
             .disconnect()
-    },
-    sync(){
-        sequelize
-            .sync()
-            .then((value) => console.log("synchronized"))
-            .catch((error) => console.log(error))
     },
     user,
     profile,

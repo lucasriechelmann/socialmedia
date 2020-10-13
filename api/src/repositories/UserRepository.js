@@ -1,12 +1,12 @@
 const database = require("../config/database")
 
-module.exports = {
+class UserRepository{
     async getAll(){
         return await database.user.findAll()      
-    },
+    }
     async get(id){
         return await database.user.findByPk(id)
-    },
+    }
     async update(id, obj){
         let { email, password, active } = obj
 
@@ -16,12 +16,12 @@ module.exports = {
         us.active = active ?? us.active
         await us.save()
         return us
-    },
+    }
     async delete(id){
         let us = await database.user.findByPk(id)
         await us.destroy()
         return us
-    },
+    }
     async insert(obj){
         let { email, password } = obj
         let confirmationGuid = ""
@@ -30,3 +30,5 @@ module.exports = {
         return us
     }
 }
+
+module.exports = UserRepository

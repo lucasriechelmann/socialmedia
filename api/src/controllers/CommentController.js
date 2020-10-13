@@ -1,24 +1,27 @@
 const CommentRepository = require("../repositories/CommentRepository")
+const commentRepository = new CommentRepository()
 
-module.exports = {
+class CommentController{
     async index(request, response){
-        let objs = await CommentRepository.getAll(request.query.postId)
+        let objs = await commentRepository.getAll(request.query.postId)
         response.json(objs)
-    },
+    }
     async show(request, response){
-        let obj = await CommentRepository.get(request.params.id)
+        let obj = await commentRepository.get(request.params.id)
         response.json(obj)
-    },
+    }
     async destroy(request, response){
-        let obj = await CommentRepository.delete(request.params.id)
+        let obj = await commentRepository.delete(request.params.id)
         response.json(obj)
-    },
+    }
     async update(request, response){
-        let obj = await CommentRepository.update(request.params.id, request.body)
+        let obj = await commentRepository.update(request.params.id, request.body)
         response.json(obj)
-    },
+    }
     async store(request, response){
-        let obj = await CommentRepository.insert(request.body)
+        let obj = await commentRepository.insert(request.body)
         response.json(obj)
     }
 }
+
+module.exports = CommentController

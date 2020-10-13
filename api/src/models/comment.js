@@ -1,4 +1,4 @@
-const { Model, Sequelize } = require("sequelize")
+const { Model } = require("sequelize")
 
 module.exports = (sequelize, type, entities) => {
     class Comment extends Model{

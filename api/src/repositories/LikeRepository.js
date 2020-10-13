@@ -1,6 +1,6 @@
 const database = require("../config/database")
 
-module.exports = {
+class LikeRepository{
     async getAll(obj){
         switch(true){
             case obj.postId:
@@ -10,10 +10,10 @@ module.exports = {
             default:
                 return await database.like.findAll()
         }        
-    },
+    }
     async get(id){
         return await database.like.findByPk(id)
-    },
+    }
     async update(id, obj){
         let { like, dislike, postId, commentId } = obj
 
@@ -24,15 +24,17 @@ module.exports = {
         lik.commentId = commentId
         await lik.save()
         return lik
-    },
+    }
     async delete(id){
         let like = await database.like.findByPk(id)
         await like.destroy()
         return like
-    },
+    }
     async insert(obj){
         let { like, dislike, postId, commentId, userId } = obj
         let lik = await database.like.create({ like, userId, postId, like, dislike, commentId })
         return lik
     }
 }
+
+module.exports = LikeRepository
